@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 	"strconv"
 
@@ -11,6 +10,14 @@ import (
 var xms *xmsv3.XMS
 
 func init() {
+
+}
+
+func main() {
+
+}
+
+func New() error {
 	endpoint := os.Getenv("GOXTREMIO_ENDPOINT")
 	insecure, _ := strconv.ParseBool(os.Getenv("GOXTREMIO_INSECURE"))
 	username := os.Getenv("GOXTREMIO_USERNAME")
@@ -19,10 +26,7 @@ func init() {
 	var err error
 	xms, err = xmsv3.New(endpoint, insecure, username, password)
 	if err != nil {
-		log.Fatalf(err.Error())
+		return err
 	}
-}
-
-func main() {
-
+	return nil
 }

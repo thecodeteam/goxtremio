@@ -35,6 +35,11 @@ Currently only tested with XMS v3.
 ## Examples
 The package was written using test files so, these can be looked at for a more comprehensive view of how to implement the different functions.
 
+Initiliaze XtremIO Package
+    if err := goxtremio.New(); err != nil {
+      return nil, err
+    }
+
 Get an Initiator Group by Name
 
     initiator, err := GetInitiatorGroup("", "VPLEX-ee20")
