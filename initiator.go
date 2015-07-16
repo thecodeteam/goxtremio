@@ -1,4 +1,4 @@
-package main
+package goxtremio
 
 import xmsv3 "github.com/emccode/goxtremio/api/v3"
 

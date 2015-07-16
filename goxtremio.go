@@ -1,4 +1,4 @@
-package main
+package goxtremio
 
 import (
 	"os"
@@ -10,10 +10,6 @@ import (
 var xms *xmsv3.XMS
 
 func init() {
-
-}
-
-func main() {
 
 }
 
