@@ -6,10 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	
+	log "github.com/Sirupsen/logrus"
 )
 
 type XMS struct {
