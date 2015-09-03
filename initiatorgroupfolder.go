@@ -1,19 +1,21 @@
 package goxtremio
 
-import xmsv3 "github.com/emccode/goxtremio/api/v3"
+import xms "github.com/emccode/goxtremio/api/v3"
+
+type InitiatorGroupFolder *xms.IGFolder
 
 //GetIGFolder returns a specific initiator by name or ID
-func GetIGFolder(id string, name string) (*xmsv3.IGFolder, error) {
-	igFolder, err := xms.GetIGFolder(id, name)
+func (c *Client) GetIGFolder(id string, name string) (InitiatorGroupFolder, error) {
+	igf, err := c.api.GetIGFolder(id, name)
 	if err != nil {
 		return nil, err
 	}
-	return igFolder.Content, nil
+	return InitiatorGroupFolder(igf.Content), nil
 }
 
 //GetIGFolders returns a list of initiators
-func GetIGFolders() ([]*xmsv3.Ref, error) {
-	igFolders, err := xms.GetIGFolders()
+func (c *Client) GetIGFolders() (Refs, error) {
+	igFolders, err := c.api.GetIGFolders()
 	if err != nil {
 		return nil, err
 	}

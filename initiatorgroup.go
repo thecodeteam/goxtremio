@@ -1,21 +1,25 @@
 package goxtremio
 
-import xmsv3 "github.com/emccode/goxtremio/api/v3"
+import xms "github.com/emccode/goxtremio/api/v3"
+
+type InitiatorGroup xms.InitiatorGroup
 
 //GetInitiatorGroup returns a specific initiator by name or ID
-func GetInitiatorGroup(id string, name string) (*xmsv3.InitiatorGroup, error) {
-	initiator, err := xms.GetInitiatorGroup(id, name)
+func (c *Client) GetInitiatorGroup(
+	id string, name string) (*InitiatorGroup, error) {
+	ig, err := c.api.GetInitiatorGroup(id, name)
 	if err != nil {
 		return nil, err
 	}
-	return initiator.Content, nil
+	igg := InitiatorGroup(*ig.Content)
+	return &igg, nil
 }
 
 //GetInitiatorGroups returns a list of initiators
-func GetInitiatorGroups() ([]*xmsv3.Ref, error) {
-	initiators, err := xms.GetInitiatorGroups()
+func (c *Client) GetInitiatorGroups() (Refs, error) {
+	ig, err := c.api.GetInitiatorGroups()
 	if err != nil {
 		return nil, err
 	}
-	return initiators.InitiatorGroups, nil
+	return ig.InitiatorGroups, nil
 }

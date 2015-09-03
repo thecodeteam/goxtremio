@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestGetVolumeFolderByID(*testing.T) {
-	volumeFolder, err := GetVolumeFolder("7", "")
+func TestGetVolumeFolderByID(t *testing.T) {
+	volumeFolder, err := c.GetVolumeFolder("7", "")
 	if err != nil {
 		panic(err)
 	}
@@ -15,7 +15,7 @@ func TestGetVolumeFolderByID(*testing.T) {
 }
 
 func TestGetVolumeFolderByName(*testing.T) {
-	volumeFolder, err := GetVolumeFolder("", "/Ubuntu")
+	volumeFolder, err := c.GetVolumeFolder("", "/Ubuntu")
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +24,7 @@ func TestGetVolumeFolderByName(*testing.T) {
 }
 
 func TestGetVolumeFolders(*testing.T) {
-	volumeFolders, err := GetVolumeFolders()
+	volumeFolders, err := c.GetVolumeFolders()
 	if err != nil {
 		panic(err)
 	}

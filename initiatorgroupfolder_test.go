@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetIGFolderByID(*testing.T) {
-	igFolder, err := GetIGFolder("5", "")
+	igFolder, err := c.GetIGFolder("5", "")
 	if err != nil {
 		panic(err)
 	}
@@ -15,7 +15,7 @@ func TestGetIGFolderByID(*testing.T) {
 }
 
 func TestGetIGFolderByName(*testing.T) {
-	igFolder, err := GetIGFolder("", "/ubuntu")
+	igFolder, err := c.GetIGFolder("", "/ubuntu")
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +24,7 @@ func TestGetIGFolderByName(*testing.T) {
 }
 
 func TestGetIGFolders(*testing.T) {
-	igFolders, err := GetIGFolders()
+	igFolders, err := c.GetIGFolders()
 	if err != nil {
 		panic(err)
 	}

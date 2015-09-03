@@ -1,10 +1,12 @@
 package goxtremio
 
-import xmsv3 "github.com/emccode/goxtremio/api/v3"
+import xms "github.com/emccode/goxtremio/api/v3"
+
+type VolumeFolder *xms.VolumeFolder
 
 //GetVolumeFolder returns a specific initiator by name or ID
-func GetVolumeFolder(id string, name string) (*xmsv3.VolumeFolder, error) {
-	volumeFolder, err := xms.GetVolumeFolder(id, name)
+func (c *Client) GetVolumeFolder(id string, name string) (VolumeFolder, error) {
+	volumeFolder, err := c.api.GetVolumeFolder(id, name)
 	if err != nil {
 		return nil, err
 	}
@@ -12,8 +14,8 @@ func GetVolumeFolder(id string, name string) (*xmsv3.VolumeFolder, error) {
 }
 
 //GetVolumeFolders returns a list of initiators
-func GetVolumeFolders() ([]*xmsv3.Ref, error) {
-	volumeFolders, err := xms.GetVolumeFolders()
+func (c *Client) GetVolumeFolders() (Refs, error) {
+	volumeFolders, err := c.api.GetVolumeFolders()
 	if err != nil {
 		return nil, err
 	}
