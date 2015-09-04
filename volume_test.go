@@ -3,12 +3,10 @@ package goxtremio
 import (
 	"fmt"
 	"testing"
-
-	xmsv3 "github.com/emccode/goxtremio/api/v3"
 )
 
 func TestGetVolumeByID(*testing.T) {
-	volume, err := GetVolume("24", "")
+	volume, err := c.GetVolume("24", "")
 	if err != nil {
 		panic(err)
 	}
@@ -17,7 +15,7 @@ func TestGetVolumeByID(*testing.T) {
 }
 
 func TestGetVolumeByName(*testing.T) {
-	volume, err := GetVolume("", "ubuntu-vol4")
+	volume, err := c.GetVolume("", "ubuntu-vol4")
 	if err != nil {
 		panic(err)
 	}
@@ -26,7 +24,7 @@ func TestGetVolumeByName(*testing.T) {
 }
 
 func TestGetVolumes(*testing.T) {
-	volumes, err := GetVolumes()
+	volumes, err := c.GetVolumes()
 	if err != nil {
 		panic(err)
 	}
@@ -35,20 +33,20 @@ func TestGetVolumes(*testing.T) {
 }
 
 func TestNewVolume(*testing.T) {
-	req := &xmsv3.PostVolumesReq{
+	req := &NewVolumeOptions{
 		VolName: "testing1",
 		VolSize: 1073741824,
 	}
-	postVolumesResp, err := NewVolume(req)
+	res, err := c.NewVolume(req)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(fmt.Sprintf("%+v", postVolumesResp))
+	fmt.Println(fmt.Sprintf("%+v", res))
 }
 
 func TestDeleteVolume(*testing.T) {
-	err := DeleteVolume("", "testing1")
+	err := c.DeleteVolume("", "testing1")
 	if err != nil {
 		panic(err)
 	}

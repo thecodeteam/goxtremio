@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetInitiatorGroupByID(*testing.T) {
-	initiator, err := GetInitiatorGroup("4", "")
+	initiator, err := c.GetInitiatorGroup("4", "")
 	if err != nil {
 		panic(err)
 	}
@@ -15,7 +15,7 @@ func TestGetInitiatorGroupByID(*testing.T) {
 }
 
 func TestGetInitiatorGroupByName(*testing.T) {
-	initiator, err := GetInitiatorGroup("", "VPLEX-ee20")
+	initiator, err := c.GetInitiatorGroup("", "VPLEX-ee20")
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +24,7 @@ func TestGetInitiatorGroupByName(*testing.T) {
 }
 
 func TestGetInitiatorGroups(*testing.T) {
-	initiators, err := GetInitiatorGroups()
+	initiators, err := c.GetInitiatorGroups()
 	if err != nil {
 		panic(err)
 	}

@@ -1,10 +1,12 @@
 package goxtremio
 
-import xmsv3 "github.com/emccode/goxtremio/api/v3"
+import xms "github.com/emccode/goxtremio/api/v3"
+
+type ISCSIPortal *xms.ISCSIPortal
 
 //GetISCSIPortal returns a specific iSCSI portal by name or ID
-func GetISCSIPortal(id string, name string) (*xmsv3.ISCSIPortal, error) {
-	iSCSIPortal, err := xms.GetISCSIPortal(id, name)
+func (c *Client) GetISCSIPortal(id string, name string) (ISCSIPortal, error) {
+	iSCSIPortal, err := c.api.GetISCSIPortal(id, name)
 	if err != nil {
 		return nil, err
 	}
@@ -12,8 +14,8 @@ func GetISCSIPortal(id string, name string) (*xmsv3.ISCSIPortal, error) {
 }
 
 //GetISCSIPortals returns a list of iSCSI portals
-func GetISCSIPortals() ([]*xmsv3.Ref, error) {
-	iSCSIPortals, err := xms.GetISCSIPortals()
+func (c *Client) GetISCSIPortals() (Refs, error) {
+	iSCSIPortals, err := c.api.GetISCSIPortals()
 	if err != nil {
 		return nil, err
 	}

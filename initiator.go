@@ -1,31 +1,43 @@
 package goxtremio
 
-import xmsv3 "github.com/emccode/goxtremio/api/v3"
+import xms "github.com/emccode/goxtremio/api/v3"
+
+type Initiator *xms.Initiator
+type NewInitiatorOptions xms.PostInitiatorsReq
+type NewInitiatorResult *xms.PostInitiatorsResp
 
 //GetInitiator returns a specific initiator by name or ID
-func GetInitiator(id string, name string) (*xmsv3.Initiator, error) {
-	initiator, err := xms.GetInitiator(id, name)
+func (c *Client) GetInitiator(id string, name string) (Initiator, error) {
+	i, err := c.api.GetInitiator(id, name)
 	if err != nil {
 		return nil, err
 	}
-	return initiator.Content, nil
+
+	return i.Content, nil
 }
 
 //GetInitiators returns a list of initiators
-func GetInitiators() ([]*xmsv3.Ref, error) {
-	initiators, err := xms.GetInitiators()
+func (c *Client) GetInitiators() (Refs, error) {
+	i, err := c.api.GetInitiators()
 	if err != nil {
 		return nil, err
 	}
-	return initiators.Initiators, nil
+	return i.Initiators, nil
 }
 
 //NewInitiator creates a volume
-func NewInitiator(opts *xmsv3.PostInitiatorsReq) (resp *xmsv3.PostInitiatorsResp, err error) {
-	return xms.PostInitiators(opts)
+func (c *Client) NewInitiator(opts *NewInitiatorOptions) (NewInitiatorResult, error) {
+	req := xms.PostInitiatorsReq(*opts)
+	res, err := c.api.PostInitiators(&req)
+	if err != nil {
+		return nil, err
+	}
+
+	nir := NewInitiatorResult(res)
+	return nir, nil
 }
 
 //DeleteInitiator deletes a volume
-func DeleteInitiator(id string, name string) error {
-	return xms.DeleteInitiators(id, name)
+func (c *Client) DeleteInitiator(id string, name string) error {
+	return c.api.DeleteInitiators(id, name)
 }

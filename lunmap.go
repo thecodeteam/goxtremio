@@ -1,10 +1,14 @@
 package goxtremio
 
-import xmsv3 "github.com/emccode/goxtremio/api/v3"
+import xms "github.com/emccode/goxtremio/api/v3"
+
+type LunMap *xms.LunMap
+type NewLunMapOptions xms.PostLunMapsReq
+type NewLunMapResult *xms.PostLunMapsResp
 
 //GetLunMap returns a specific lunMap by name or ID
-func GetLunMap(id string, name string) (*xmsv3.LunMap, error) {
-	lunMap, err := xms.GetLunMap(id, name)
+func (c *Client) GetLunMap(id string, name string) (LunMap, error) {
+	lunMap, err := c.api.GetLunMap(id, name)
 	if err != nil {
 		return nil, err
 	}
@@ -12,8 +16,8 @@ func GetLunMap(id string, name string) (*xmsv3.LunMap, error) {
 }
 
 //GetLunMaps returns a list of lunMaps
-func GetLunMaps() ([]*xmsv3.Ref, error) {
-	lunMaps, err := xms.GetLunMaps()
+func (c *Client) GetLunMaps() (Refs, error) {
+	lunMaps, err := c.api.GetLunMaps()
 	if err != nil {
 		return nil, err
 	}
@@ -21,11 +25,12 @@ func GetLunMaps() ([]*xmsv3.Ref, error) {
 }
 
 //NewLunMap creates a volume
-func NewLunMap(opts *xmsv3.PostLunMapsReq) (resp *xmsv3.PostLunMapsResp, err error) {
-	return xms.PostLunMaps(opts)
+func (c *Client) NewLunMap(opts *NewLunMapOptions) (NewLunMapResult, error) {
+	req := xms.PostLunMapsReq(*opts)
+	return c.api.PostLunMaps(&req)
 }
 
 //DeleteLunMap deletes a volume
-func DeleteLunMap(id string, name string) error {
-	return xms.DeleteLunMaps(id, name)
+func (c *Client) DeleteLunMap(id string, name string) error {
+	return c.api.DeleteLunMaps(id, name)
 }

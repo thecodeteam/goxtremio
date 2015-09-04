@@ -3,12 +3,10 @@ package goxtremio
 import (
 	"fmt"
 	"testing"
-
-	xmsv3 "github.com/emccode/goxtremio/api/v3"
 )
 
 func TestGetLunMapByID(*testing.T) {
-	volume, err := GetLunMap("21", "")
+	volume, err := c.GetLunMap("21", "")
 	if err != nil {
 		panic(err)
 	}
@@ -17,7 +15,7 @@ func TestGetLunMapByID(*testing.T) {
 }
 
 func TestGetLunMapByName(*testing.T) {
-	volume, err := GetLunMap("", "18_1_1")
+	volume, err := c.GetLunMap("", "18_1_1")
 	if err != nil {
 		panic(err)
 	}
@@ -26,7 +24,7 @@ func TestGetLunMapByName(*testing.T) {
 }
 
 func TestGetLunMaps(*testing.T) {
-	volumes, err := GetLunMaps()
+	volumes, err := c.GetLunMaps()
 	if err != nil {
 		panic(err)
 	}
@@ -35,20 +33,20 @@ func TestGetLunMaps(*testing.T) {
 }
 
 func TestNewLunMaps(*testing.T) {
-	req := &xmsv3.PostLunMapsReq{
+	req := &NewLunMapOptions{
 		VolID: 24,
 		IgID:  4,
 	}
-	postLunMapsResp, err := NewLunMap(req)
+	res, err := c.NewLunMap(req)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(fmt.Sprintf("%+v", postLunMapsResp))
+	fmt.Println(fmt.Sprintf("%+v", res))
 }
 
 func TestDeleteLunMapsByID(*testing.T) {
-	err := DeleteLunMap("21", "")
+	err := c.DeleteLunMap("21", "")
 	if err != nil {
 		panic(err)
 	}
@@ -56,7 +54,7 @@ func TestDeleteLunMapsByID(*testing.T) {
 }
 
 func TestDeleteLunMapsByName(*testing.T) {
-	err := DeleteLunMap("", "testing1")
+	err := c.DeleteLunMap("", "testing1")
 	if err != nil {
 		panic(err)
 	}

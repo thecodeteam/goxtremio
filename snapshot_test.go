@@ -3,12 +3,10 @@ package goxtremio
 import (
 	"fmt"
 	"testing"
-
-	xmsv3 "github.com/emccode/goxtremio/api/v3"
 )
 
 func TestGetSnapshotByID(*testing.T) {
-	snapshot, err := GetSnapshot("25", "")
+	snapshot, err := c.GetSnapshot("25", "")
 	if err != nil {
 		panic(err)
 	}
@@ -17,7 +15,7 @@ func TestGetSnapshotByID(*testing.T) {
 }
 
 func TestGetSnapshotByName(*testing.T) {
-	snapshot, err := GetSnapshot("", "ubuntu-vol4.snap.06022015-09:58")
+	snapshot, err := c.GetSnapshot("", "ubuntu-vol4.snap.06022015-09:58")
 	if err != nil {
 		panic(err)
 	}
@@ -26,7 +24,7 @@ func TestGetSnapshotByName(*testing.T) {
 }
 
 func TestGetSnapshots(*testing.T) {
-	snapshots, err := GetSnapshots()
+	snapshots, err := c.GetSnapshots()
 	if err != nil {
 		panic(err)
 	}
@@ -35,27 +33,22 @@ func TestGetSnapshots(*testing.T) {
 }
 
 func TestNewSnapshot(*testing.T) {
-	var snapList []*xmsv3.SnapListItem
-	snapList = append(snapList, &xmsv3.SnapListItem{
-		AncestorVolID: "ubuntu-vol4",
-		SnapVolName:   "ubuntu-vol4-snap1",
-	})
 
-	req := &xmsv3.PostSnapshotsReq{
-		SnapList: snapList,
+	req := &NewSnapshotOptions{
+		SnapList: NewSnapListItems("ubuntu-vol4", "ubuntu-vol4-snap1"),
 		FolderID: "/Ubuntu",
 	}
 
-	postSnapshotsResp, err := NewSnapshot(req)
+	res, err := c.NewSnapshot(req)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(fmt.Sprintf("%+v", postSnapshotsResp))
+	fmt.Println(fmt.Sprintf("%+v", res))
 }
 
 func TestDeleteSnapshot(*testing.T) {
-	err := DeleteSnapshot("", "ubuntu-vol4-snap1")
+	err := c.DeleteSnapshot("", "ubuntu-vol4-snap1")
 	if err != nil {
 		panic(err)
 	}

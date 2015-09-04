@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetEventsBySeverity(*testing.T) {
-	event, err := GetEvents("information", "", "")
+	event, err := c.GetEvents("information", "", "")
 	if err != nil {
 		panic(err)
 	}
@@ -15,7 +15,7 @@ func TestGetEventsBySeverity(*testing.T) {
 }
 
 func TestGetEventsByEventCode(*testing.T) {
-	event, err := GetEvents("", "1400201", "")
+	event, err := c.GetEvents("", "1400201", "")
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +24,7 @@ func TestGetEventsByEventCode(*testing.T) {
 }
 
 func TestGetEventsByDescription(*testing.T) {
-	event, err := GetEvents("", "", "^InfiniBand Switch port state for port")
+	event, err := c.GetEvents("", "", "^InfiniBand Switch port state for port")
 	if err != nil {
 		panic(err)
 	}
@@ -33,7 +33,7 @@ func TestGetEventsByDescription(*testing.T) {
 }
 
 func TestGetEvents(*testing.T) {
-	events, err := GetEvents("", "", "")
+	events, err := c.GetEvents("", "", "")
 	if err != nil {
 		panic(err)
 	}

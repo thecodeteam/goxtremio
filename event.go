@@ -3,31 +3,29 @@ package goxtremio
 import (
 	"regexp"
 
-	xmsv3 "github.com/emccode/goxtremio/api/v3"
+	xms "github.com/emccode/goxtremio/api/v3"
 )
 
-func getEvents(severity string) ([]*xmsv3.Event, error) {
-	events, err := xms.GetEvents(severity)
+type Event *xms.Event
+
+//GetEvents returns a list or a specific events filtered by severity,
+//eventCode, or description
+func (c *Client) GetEvents(
+	severity, eventCode, descRxPatt string) ([]Event, error) {
+
+	events, err := c.api.GetEvents(severity)
 	if err != nil {
 		return nil, err
 	}
-	return events.Events, nil
-}
 
-//GetEvents returns a list or a specific events filtered by severity, eventcode, or description
-func GetEvents(severity string, eventCode string, descriptionRegex string) ([]*xmsv3.Event, error) {
-	events, err := getEvents(severity)
-	if err != nil {
-		return nil, err
-	}
+	var filtered []Event
+	rx, _ := regexp.Compile(descRxPatt)
 
-	var eventsFiltered []*xmsv3.Event
-	r, _ := regexp.Compile(descriptionRegex)
-
-	for _, event := range events {
-		if (eventCode == "" || event.EventCode == eventCode) && (event.Description == "" || r.MatchString(event.Description)) {
-			eventsFiltered = append(eventsFiltered, event)
+	for _, e := range events.Events {
+		if (eventCode == "" || e.EventCode == eventCode) &&
+			(e.Description == "" || rx.MatchString(e.Description)) {
+			filtered = append(filtered, e)
 		}
 	}
-	return eventsFiltered, nil
+	return filtered, nil
 }
